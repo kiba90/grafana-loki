@@ -8,7 +8,9 @@ Grafana - for graphs
 Loki - for logs
 Promtail - for logs delivery
 
-http://localhosy:3000 to enter into grafana interface. Credentials are admin:admin.
+http://localhost:3000 to enter into grafana interface. Credentials are admin:admin.
+
+http://monitoring.loki:3100 to use as url for loki in grafana datasource
 
 For specific logs stream, you have to add to your docker-compose.yml 
 ```

@@ -11,7 +11,7 @@ services:
     expose:
       - 3100
     ports:
-      - "3100:3100"
+      - 0.0.0.0:3100:3100
     networks:
       - monitoring.network
     labels:
@@ -29,7 +29,7 @@ services:
     expose:
       - 9080
     ports:
-      - "9080:9080"
+      - 0.0.0.0:9080:9080
     restart: unless-stopped
     networks:
       - monitoring.network
@@ -37,14 +37,15 @@ services:
       org.label-schema.group: "monitoring"
 
   grafana:
-    image: grafana/grafana:latest
+    build:
+      context: ./grafana
     container_name: monitoring.grafana
     volumes:
       - grafana-data:/var/lib/grafana
     expose:
-      - 3000
+      - 3001
     ports:
-      - "3000:3000"
+      - 0.0.0.0:3001:3001
     restart: unless-stopped
     networks:
       - monitoring.network

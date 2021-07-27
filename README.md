@@ -1,7 +1,7 @@
-#Install
+# Install
 docker-compose up
 
-#Usage
+# Usage
 Contains:
 
 Grafana - for graphs

@@ -1,0 +1,63 @@
+version: '3.7'
+services:
+
+  loki:
+    image: grafana/loki:latest
+    container_name: monitoring.loki
+    volumes:
+      - ./loki/loki-config.yml:/etc/loki-config.yml
+      - loki-data:/tmp/loki/
+    command: -config.file=/etc/loki/local-config.yaml
+    expose:
+      - 3100
+    ports:
+      - "3100:3100"
+    networks:
+      - monitoring.network
+    labels:
+      org.label-schema.group: "monitoring"
+
+  promtail:
+    image: grafana/promtail:latest
+    container_name: monitoring.promtail
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - promtail-data:/var/lib/promtail/positions
+      - ./promtail/promtail.yml:/etc/promtail/promtail.yml
+    command:
+      - '-config.file=/etc/promtail/promtail.yml'
+    expose:
+      - 9080
+    ports:
+      - "9080:9080"
+    restart: unless-stopped
+    networks:
+      - monitoring.network
+    labels:
+      org.label-schema.group: "monitoring"
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: monitoring.grafana
+    volumes:
+      - grafana-data:/var/lib/grafana
+    expose:
+      - 3000
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    networks:
+      - monitoring.network
+    labels:
+      org.label-schema.group: "monitoring"
+
+
+networks:
+  monitoring.network:
+    ipam:
+      driver: default
+
+volumes:
+  grafana-data:
+  loki-data:
+  promtail-data:

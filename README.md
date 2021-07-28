@@ -8,7 +8,8 @@ Grafana - for graphs
 Loki - for logs
 Promtail - for logs delivery
 
-http://localhost:3000 to enter into grafana interface. Credentials are admin:admin.
+http://localhost:3001 to enter into grafana interface. Credentials are admin:admin.
+
 
 http://monitoring.loki:3100 to use as url for loki in grafana datasource
 
